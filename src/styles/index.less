@@ -1,0 +1,39 @@
+@import './common.less';
+
+html {
+  font-size: 50px;
+}
+body {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.cover {
+  background-color: #eee;
+  background-size: cover;
+  background-position: center center;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  &.title {
+    line-height: 1.5;
+  }
+}
+
+img {
+  &.cover {
+    object-fit: cover;
+    object-position: center center;
+  }
+  &.contain {
+    object-position: center center;
+    object-fit: contain;
+  }
+}
+div:not('.origin-wrap') {
+  .ant-input-number-handler-wrap {
+    display: none !important;
+  }
+}
