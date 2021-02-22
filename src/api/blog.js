@@ -1,29 +1,26 @@
-import axios from 'axios'
-import { baseURL } from '@/constants'
+// import axios from 'axios'
+import request from '@/utils/request'
 
 // 博客列表
 export function list(params) {
-  return axios({
-    baseURL: baseURL,
-    url: '/blog/query',
+  return request({
+    url: '/api/blog/query',
     params
   })
 }
 
 // 删除
 export function remove(id) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/delete/${id}`,
+  return request({
+    url: `/api/blog/delete/${id}`,
     method: 'delete'
   })
 }
 
 // 详情接口
 export function detail(id) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/detail/${id}`,
+  return request({
+    url: `/api/blog/detail/${id}`,
     method: 'get'
   })
 }
@@ -31,9 +28,8 @@ export function detail(id) {
 
 // 新增接口
 export function add(data) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/add`,
+  return request({
+    url: `/api/blog/add`,
     method: 'post',
     data
   })
@@ -41,9 +37,8 @@ export function add(data) {
 
 // 编辑接口
 export function update(data) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/update/${data.id}`,
+  return request({
+    url: `/api/blog/update/${data.id}`,
     method: 'put',
     data
   })
@@ -52,9 +47,8 @@ export function update(data) {
 // 分类 
 // 查询接口
 export function cateList(params) {
-  return axios({
-    baseURL: baseURL,
-    url: '/blog/cate/query',
+  return request({
+    url: '/api/blog/cate/query',
     params
   })
 }
@@ -62,8 +56,7 @@ export function cateList(params) {
 // 新增接口
 export function cateAdd(data) {
   return axios({
-    baseURL: baseURL,
-    url: `/blog/cate/add`,
+    url: `/api/blog/cate/add`,
     method: 'post',
     data
   })
@@ -71,9 +64,8 @@ export function cateAdd(data) {
 
 // 编辑接口
 export function cateUpdate(data) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/cate/update/${data.id}`,
+  return request({
+    url: `/api/blog/cate/update/${data.id}`,
     method: 'put',
     data
   })
@@ -81,9 +73,8 @@ export function cateUpdate(data) {
 
 // 删除接口
 export function cateRemove(id) {
-  return axios({
-    baseURL: baseURL,
-    url: `/blog/cate/delete/${id}`,
+  return request({
+    url: `/api/blog/cate/delete/${id}`,
     method: 'delete'
   })
 }
@@ -91,10 +82,9 @@ export function cateRemove(id) {
 // 启用和禁用
 export function change(data) {
   const url = !data.status
-    ? `/blog/cate/${data.id}/resume`
-    : `/blog/cate/${data.id}/forbid`
-  return axios({
-    baseURL: baseURL,
+    ? `/api/blog/cate/${data.id}/resume`
+    : `/api/blog/cate/${data.id}/forbid`
+  return request({
     url,
     method: 'patch'
   })

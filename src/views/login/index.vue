@@ -41,12 +41,14 @@
 </template>
 
 <script>
+const isDev = process.env.NODE_ENV === 'development';
+
 export default {
   data() {
     return {
       form: {
-        username: '',
-        password: ''
+        username: isDev ? 'admin' : '',
+        password: isDev ? '12345678' : ''
       }
     };
   },
@@ -55,10 +57,12 @@ export default {
       console.log(33);
     },
     toLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (!valid) return;
         const f = { ...this.form };
-        this.$store.dispatch('login', f);
+        await this.$store.dispatch('login', f);
+        // this.$router.replace('/index');
+        window.location.reload();
       });
     }
   }

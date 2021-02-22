@@ -61,9 +61,9 @@ export default {
   methods: {
     async fetchList() {
       // this.saveParams(this.payload);
-      const { data, total } = await Api.list(this.payload);
-      this.dataSource = data.list;
-      this.total = data.total;
+      const { list, total } = await Api.list(this.payload);
+      this.dataSource = list;
+      this.total = total;
     },
     handleEdit(row = {}) {
       this.$router.push({

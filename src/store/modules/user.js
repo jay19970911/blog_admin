@@ -1,36 +1,43 @@
-// import authority from '@/utils/authority'
+import * as Api from '@/api/user';
+import authority from '@/utils/authority'
 
-// const userCache = authority.get() || {}
-// const { token } = userCache
-
-const user = {
-  state: {
-    token: '',
-    user: {},
-  },
-
-  mutations: {
-    SET_USER: (state, payload) => {
-      Object.assign(state, payload)
-    },
-  },
-
-  actions: {
-    // 登录
-    async login({ commit }, { username = '', password = '' }) {
-      commit('SET_USER', { user: { username, password }, token: 123456 })
-    },
-
-    // 登出
-    logout({ commit }) {
-      commit('SET_USER', {
-        token: '',
-        name: '',
-      })
-      // authority.clear()
-      window.location.reload()
-    },
-  },
+const state = {
+  user: authority.get() || {}
 }
 
-export default user
+const getters = {
+  isLogin(state) {
+    return !!state.user.token
+  }
+}
+
+const mutations = {
+  SET_USER: (state, payload = {}) => {
+    Object.assign(state, payload)
+  }
+}
+
+const actions = {
+  // 登录
+  async login({ commit }, { username = '', password = '' }) {
+    const data = await Api.login({
+      username: username.trim(),
+      password: password.trim()
+    })
+    data.is_admin = 1
+    authority.set(data)
+    commit('SET_USER', { user: data })
+  },
+  // 登出
+  async logout() {
+    authority.clear()
+    window.location.reload()
+  }
+}
+
+export default {
+  state,
+  getters,
+  mutations,
+  actions
+}

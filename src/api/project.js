@@ -1,20 +1,18 @@
-import axios from 'axios'
-import { baseURL } from '@/constants'
+// import axios from 'axios'
+import request from '@/utils/request'
 
 // 项目列表
 export function list(params) {
-  return axios({
-    baseURL: baseURL,
-    url: '/project/query',
+  return request({
+    url: '/api/project/query',
     params
   })
 }
 
 // 详情接口
 export function detail(id) {
-  return axios({
-    baseURL: baseURL,
-    url: `/project/detail/${id}`,
+  return request({
+    url: `/api/project/detail/${id}`,
     method: 'get'
   })
 }
@@ -22,9 +20,8 @@ export function detail(id) {
 
 // 新增接口
 export function add(data) {
-  return axios({
-    baseURL: baseURL,
-    url: `/project/add`,
+  return request({
+    url: `/api/project/add`,
     method: 'post',
     data
   })
@@ -32,8 +29,7 @@ export function add(data) {
 
 // 编辑接口
 export function update(data) {
-  return axios({
-    baseURL: baseURL,
+  return request({
     url: `/project/update/${data.id}`,
     method: 'put',
     data
@@ -42,8 +38,7 @@ export function update(data) {
 
 // 删除
 export function remove(id) {
-  return axios({
-    baseURL: baseURL,
+  return request({
     url: `/project/delete/${id}`,
     method: 'delete'
   })

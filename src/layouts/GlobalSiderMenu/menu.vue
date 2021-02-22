@@ -43,8 +43,9 @@ export default {
       return this.$store.state.setting.avatar;
     },
     menuList() {
-      const { children } = this.$router.options.routes[0];
-      return children.filter(item => !item.invisible);
+      const { children = [] } = this.$router.options.routes[0];
+      // return children.filter(item => !item.invisible);
+      return children;
     },
     selectedKeys() {
       return [this.$route.path];
