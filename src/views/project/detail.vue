@@ -27,13 +27,14 @@
           v-bind="formItemLayout"
           prop="introduce"
         >
-          <a-input
-            placeholder="请输入项目介绍"
-            type="textarea"
-            :rows="5"
+          <Editor
+            id="tinymce"
+            apiKey="2cxmq3i3ilepgtbvle7c6ltaklf6r6fssrxjvsgaa6twfgdc"
             v-model="form.introduce"
-          ></a-input>
+            :init="init"
+          ></Editor>
         </a-form-model-item>
+
         <a-form-model-item class="actions" v-bind="tailFormItemLayout">
           <a-button
             type="primary"
@@ -50,16 +51,42 @@
 <script>
 import * as Api from '@/api/project';
 
+import tinymce from 'tinymce/tinymce';
+import Editor from '@tinymce/tinymce-vue';
+import 'tinymce/themes/silver/theme';
+
 export default {
+  components: {
+    Editor
+  },
   data() {
     const { id = '' } = this.$route.query;
     return {
       form: {},
-      id
+      id,
+      init: {
+        id: 'tiny-iframe',
+        height: this.height,
+        language: 'zh_CN',
+        menubar: false,
+        plugins: ['preview importcss fullscreen image link media codesample quickbars'],
+        file_picker_types: 'media',
+        fontsize_formats: '10px 12px 14px 16px 18px 24px 36px 48px'
+        // language_url: '/static/tinymce/zh_CN.js',
+        // language: 'zh_CN',
+        // skin_url: '/static/tinymce/skins/lightgray', // skin路径
+        // height: 300, // 编辑器高度
+        // branding: false, // 是否禁用“Powered by TinyMCE”
+        // menubar: true, // 顶部菜单栏显示
+        // plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+        // toolbar:
+        //   'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat'
+      }
     };
   },
   computed: {},
   mounted() {
+    tinymce.init({});
     this.id && this.fetchData();
   },
   methods: {

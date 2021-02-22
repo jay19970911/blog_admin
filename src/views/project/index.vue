@@ -15,6 +15,7 @@
           </div>
         </template>
       </a-table>
+      <my-pagination :payload="payload" :total="total"></my-pagination>
     </a-card>
   </page-layout>
 </template>
@@ -23,8 +24,14 @@
 import * as Api from '@/api/project';
 export default {
   data() {
+    const { page = '1', per_page = '12' } = this.$route.query;
     return {
-      dataSource: []
+      dataSource: [],
+      total: 0,
+      payload: {
+        page: Number(page),
+        per_page: Number(per_page)
+      }
     };
   },
   computed: {
@@ -36,6 +43,8 @@ export default {
         { title: '技术', dataIndex: 'skill' },
         { title: '组件库', dataIndex: 'tool' },
         { title: '项目分类', dataIndex: 'project_tag' },
+        { title: '排序', dataIndex: 'sort' },
+        { title: '状态', dataIndex: 'status' },
         { title: '操作', dataIndex: 'action', scopedSlots: { customRender: 'action' } }
       ];
     }
@@ -45,8 +54,9 @@ export default {
   },
   methods: {
     async fetchList() {
-      const { data = {} } = await Api.list();
+      const { data = {} } = await Api.list(this.payload);
       this.dataSource = data.list;
+      this.total = data.total;
     },
     handleEdit(row = {}) {
       const r = { ...row };

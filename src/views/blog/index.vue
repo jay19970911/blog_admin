@@ -18,6 +18,7 @@
           </div>
         </template>
       </a-table>
+      <my-pagination :payload="payload" :total="total"></my-pagination>
     </a-card>
   </page-layout>
 </template>
@@ -26,11 +27,17 @@
 import * as Api from '@/api/blog';
 export default {
   data() {
+    const { page = '1', per_page = '12' } = this.$route.query;
     return {
       dataSource: [],
       form: {},
       labelCol: { span: 6 },
-      wrapperCol: { span: 14 }
+      wrapperCol: { span: 14 },
+      payload: {
+        page: Number(page),
+        per_page: Number(per_page)
+      },
+      total: 0
     };
   },
   computed: {
@@ -53,8 +60,10 @@ export default {
   },
   methods: {
     async fetchList() {
-      const { data } = await Api.list();
+      // this.saveParams(this.payload);
+      const { data, total } = await Api.list(this.payload);
       this.dataSource = data.list;
+      this.total = data.total;
     },
     handleEdit(row = {}) {
       this.$router.push({
