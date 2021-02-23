@@ -49,13 +49,14 @@ export function update(data) {
 export function cateList(params) {
   return request({
     url: '/api/blog/cate/query',
+    method: 'get',
     params
   })
 }
 
 // 新增接口
 export function cateAdd(data) {
-  return axios({
+  return request({
     url: `/api/blog/cate/add`,
     method: 'post',
     data

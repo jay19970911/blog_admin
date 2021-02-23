@@ -30,7 +30,7 @@ export function add(data) {
 // 编辑接口
 export function update(data) {
   return request({
-    url: `/project/update/${data.id}`,
+    url: `/api/project/update/${data.id}`,
     method: 'put',
     data
   })

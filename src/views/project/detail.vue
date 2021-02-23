@@ -54,6 +54,16 @@ import * as Api from '@/api/project';
 import tinymce from 'tinymce/tinymce';
 import Editor from '@tinymce/tinymce-vue';
 import 'tinymce/themes/silver/theme';
+import 'tinymce/skins/ui/oxide/skin.css';
+
+import 'tinymce/plugins/preview';
+import 'tinymce/plugins/importcss';
+import 'tinymce/plugins/fullscreen';
+import 'tinymce/plugins/image';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/codesample';
+import 'tinymce/plugins/quickbars';
 
 export default {
   components: {
@@ -66,21 +76,19 @@ export default {
       id,
       init: {
         id: 'tiny-iframe',
-        height: this.height,
+        // height: this.height, // 编辑器高度
+        height: 600,
         language: 'zh_CN',
-        menubar: false,
+        language_url: '/tinymce/langs/zh_CN.js',
+        skin_url: '/static/tinymce/skins/lightgray', // skin路径
+        menubar: true, // 顶部菜单栏显示
         plugins: ['preview importcss fullscreen image link media codesample quickbars'],
         file_picker_types: 'media',
-        fontsize_formats: '10px 12px 14px 16px 18px 24px 36px 48px'
-        // language_url: '/static/tinymce/zh_CN.js',
-        // language: 'zh_CN',
-        // skin_url: '/static/tinymce/skins/lightgray', // skin路径
-        // height: 300, // 编辑器高度
+        fontsize_formats: '10px 12px 14px 16px 18px 24px 36px 48px',
         // branding: false, // 是否禁用“Powered by TinyMCE”
-        // menubar: true, // 顶部菜单栏显示
-        // plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
-        // toolbar:
-        //   'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat'
+        toolbar:
+          'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+        branding: false
       }
     };
   },
@@ -92,7 +100,7 @@ export default {
   methods: {
     async fetchData() {
       const { data } = await Api.detail(this.id);
-      const d = { ...data.data };
+      const d = { ...data };
       this.form = d;
     },
     onSubmit() {

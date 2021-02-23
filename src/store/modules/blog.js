@@ -12,9 +12,9 @@ const mutations = {
 
 const actions = {
   async fetchCateList({ commit }) {
-    const { data = {} } = await Api.cateList()
+    const { list = [] } = await Api.cateList()
     commit('SET_CATE_LIST', {
-      cateList: data.list
+      cateList: list
     })
   },
 }

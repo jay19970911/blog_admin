@@ -83,8 +83,8 @@ export default {
   methods: {
     moment,
     async fetchData() {
-      const { data } = await Api.detail(this.id);
-      const d = { ...data.data };
+      const { data = {} } = await Api.detail(this.id);
+      const d = { ...data };
       this.form = d;
     },
     onSubmit() {
