@@ -18,6 +18,7 @@
 
         <a-menu slot="overlay">
           <a-menu-item>
+            <a-icon type="poweroff" />
             <span @click.self="logout">退出登录</span>
           </a-menu-item>
         </a-menu>
