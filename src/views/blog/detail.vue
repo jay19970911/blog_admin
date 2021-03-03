@@ -91,7 +91,6 @@ export default {
       this.$refs.form.validate(async valid => {
         if (!valid) return;
         const f = { ...this.form };
-        console.log(f);
         f.date = f.date ? moment(f.date).format('YYYY-MM-DD HH:mm:ss') : '';
         if (this.id) {
           f.id = this.id;

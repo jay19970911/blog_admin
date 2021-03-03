@@ -23,7 +23,32 @@
         </a-form-model-item>
 
         <a-form-model-item
-          label="项目介绍"
+          label="项目开始时间"
+          v-bind="formItemLayout"
+          prop="created_at"
+        >
+          <a-date-picker v-model="form.created_at"></a-date-picker>
+        </a-form-model-item>
+
+        <a-form-model-item label="项目结束时间" v-bind="formItemLayout" prop="end_at">
+          <a-date-picker v-model="form.end_at"></a-date-picker>
+        </a-form-model-item>
+
+        <a-form-model-item
+          label="项目描述"
+          v-bind="formItemLayout"
+          prop="desc_info"
+        >
+          <a-input
+            placeholder="请输入项目描述"
+            type="textarea"
+            :rows="4"
+            v-model="form.desc_info"
+          ></a-input>
+        </a-form-model-item>
+
+        <a-form-model-item
+          label="项目内容"
           v-bind="formItemLayout"
           prop="introduce"
         >
@@ -50,6 +75,8 @@
 
 <script>
 import * as Api from '@/api/project';
+
+import moment from 'moment';
 
 import tinymce from 'tinymce/tinymce';
 import Editor from '@tinymce/tinymce-vue';
@@ -98,6 +125,7 @@ export default {
     this.id && this.fetchData();
   },
   methods: {
+    moment,
     async fetchData() {
       const { data } = await Api.detail(this.id);
       const d = { ...data };
@@ -107,6 +135,8 @@ export default {
       this.$refs.form.validate(async valid => {
         if (!valid) return;
         const f = { ...this.form };
+        f.created_at = f.created_at ? moment(f.created_at).format('YYYY-MM-DD') : '';
+        f.end_at = f.end_at ? moment(f.end_at).format('YYYY-MM-DD') : '';
         if (this.id) {
           f.id = this.id;
           await Api.update(f);

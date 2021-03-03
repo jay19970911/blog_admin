@@ -8,6 +8,9 @@
         :columns="columns"
         rowKey="id"
       >
+        <template #cover="text">
+          <my-image :src="text"></my-image>
+        </template>
         <template #action="text,record">
           <div class="action-box">
             <span type="primary" class="primary" @click="handleEdit(record)">编辑</span>
@@ -39,7 +42,7 @@ export default {
       return [
         { title: '编号', dataIndex: 'id' },
         { title: '项目名称', dataIndex: 'name' },
-        { title: '封面', dataIndex: 'cover' },
+        { title: '头像', dataIndex: 'cover', scopedSlots: { customRender: 'cover' } },
         { title: '技术', dataIndex: 'skill' },
         { title: '组件库', dataIndex: 'tool' },
         { title: '项目分类', dataIndex: 'project_tag' },

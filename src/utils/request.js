@@ -42,7 +42,7 @@ instance.interceptors.response.use(
   function (error) {
     // console.dir(error)
     if (error.response.status === 401) {
-      window.location.href = '/#/login' // 跳转到登录页
+      // window.location.href = '/#/login' // 跳转到登录页
     }
     // if (error.message.indexOf('timeout') > -1) {
     //   alert('请求超时，请重试')
