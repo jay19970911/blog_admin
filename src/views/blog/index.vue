@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     async fetchList() {
-      // this.saveParams(this.payload);
       const { list, total } = await Api.list(this.payload);
       this.dataSource = list;
       this.total = total;

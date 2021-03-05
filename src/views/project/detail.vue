@@ -47,8 +47,19 @@
           ></a-input>
         </a-form-model-item>
 
+        <a-form-model-item label="负责模块" v-bind="formItemLayout">
+          <a-input
+            placeholder="请输入负责模块"
+            type="textarea"
+            :rows="5"
+            v-model="form.modules"
+          ></a-input>
+        </a-form-model-item>
+
+        <a-form-model-item label="作品图集" v-bind="formItemLayout"></a-form-model-item>
+
         <a-form-model-item
-          label="项目内容"
+          label="项目代码"
           v-bind="formItemLayout"
           prop="introduce"
         >
